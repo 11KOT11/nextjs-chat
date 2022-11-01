@@ -5,7 +5,7 @@ const connection = {};
 async function dbConnect() {
     if(connection.IsConnected)return;
     
-    const db = await mongoose.connect('mongodb+srv://TheNofis:25040425@shop.torpwn0.mongodb.net/shop?retryWrites=true&w=majority', {
+    const db = await mongoose.connect('mongodb://localhost:27017', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
 
