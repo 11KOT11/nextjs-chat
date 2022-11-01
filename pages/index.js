@@ -21,7 +21,7 @@ export default function Home(messageList) {
           {!messageList.status && <div>{messageList.error}</div>}
           {messageList.findMessage.map((e) => {
             return (
-              <div key={e.key} className="message">
+              <div key={e.key} className="message border my-3 p-3">
                 <div>
                   месяц: {e.date.month} день:{e.date.day}
                 </div>
