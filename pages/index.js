@@ -2,8 +2,13 @@ import { useState } from "react";
 export default function Home(messageList) {
   const [messageContent, setMessageContent] = useState("");
 
-  let sendMessage = () => {
-    console.log(messageContent);
+  let sendMessage = async () => {
+    setMessageContent("");
+    await (
+      await fetch(
+        "http://localhost:3000/api/sendMessage?message=" + messageContent
+      )
+    ).json();
   };
 
   return (
@@ -11,6 +16,7 @@ export default function Home(messageList) {
       <div>
         <div className="sendMessageForm">
           <input
+            value={messageContent}
             onChange={(e) => {
               setMessageContent(e.target.value);
             }}
