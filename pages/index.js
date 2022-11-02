@@ -1,14 +1,15 @@
 import { useState } from "react";
+import absoluteUrl from "next-absolute-url";
 export default function Home(messageList) {
   const [messageContent, setMessageContent] = useState("");
 
   let sendMessage = async () => {
-    setMessageContent("");
     await (
       await fetch(
-        "http://localhost:3000/api/sendMessage?message=" + messageContent
+        window.location.href + "api/sendMessage?message=" + messageContent
       )
     ).json();
+    setMessageContent("");
   };
 
   return (
@@ -44,10 +45,9 @@ export default function Home(messageList) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const messageList = await (
-    await fetch("http://localhost:3000/api/getMessage")
-  ).json();
+export async function getServerSideProps({ req }) {
+  const { origin } = absoluteUrl(req, req.headers.host);
+  const messageList = await (await fetch(origin + "/api/getMessage")).json();
   return {
     props: messageList,
   };
